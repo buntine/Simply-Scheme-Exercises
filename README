@@ -1,0 +1,22 @@
+----------------------------
+- SIMPLY SCHEME, EXERCISES -
+----------------------------
+
+This project contains my solutions to the exercises presented
+at the end of each chapter in the textbook Simply Scheme (Brian
+Harvey and Matthew Wright, 2nd ed, MIT 1999).
+
+I have omitted the first two chapters as they are very basic
+and contain little or no actual code.
+
+The code samples throughout the book use a slightly modified
+implementation of Scheme (syntactically LISP, but with some
+additional compound procedures). I have included within this
+repository the codebase that the authors provide the reader
+to augment their preferred implementation of Scheme.
+
+For the record, I recommend this particular book for anyone who:
+
+0) wants to learn LISP and/or functional programming;
+1) finds SICP uses too much abstract mathematics;
+2) is looking for a good introduction to programming
