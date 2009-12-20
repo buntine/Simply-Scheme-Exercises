@@ -15,8 +15,12 @@ additional primitive procedures). I have included within this
 repository the codebase that the authors provide the reader
 to augment their preferred implementation of Scheme.
 
+I try to only use concepts and procedures that have been introduced
+when answering questions (e.g I don't use recursion before it's been
+discussed).
+
 For the record, I recommend this particular book for anyone who:
 
-0) wants to learn LISP and/or functional programming;
+0) wants to (re)learn LISP and/or functional programming;
 1) finds SICP uses too much abstract mathematics;
 2) is looking for a good introduction to programming
