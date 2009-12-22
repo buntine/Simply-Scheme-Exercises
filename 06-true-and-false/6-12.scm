@@ -6,12 +6,22 @@
 ; as:
 ;
 ; (define (plural wd)
-;   (if (equal? (last wd) ’y)
-;       (word (bl wd) ’ies)
-;       (word wd ’s)))
+;   (if (equal? (last wd) 'y)
+;       (word (bl wd) 'ies)
+;       (word wd 's)))
 
 (define (vowel? char)
   (member? char 'aeiou))
 
 (define (secondlast x)
   (last (bl x)))
+
+(define (plural wd)
+  (cond
+    ((and
+       (equal? (last wd) 'y)
+       (vowel? (secondlast wd)))
+      (word wd 's))
+    ((equal? (last wd) 'y) (word (bl wd) 'ies))
+    ((equal? (last wd) 'x) (word wd 'es))
+    (else (word wd 's))))
