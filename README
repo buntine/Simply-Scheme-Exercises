@@ -20,7 +20,8 @@ the REPL:
 
 I try to only use concepts and procedures that have been introduced
 when answering questions (e.g I don't use recursion before it's been
-discussed, nor do I use variables until chapter 7).
+discussed, nor do I use variables -- other than the lambda shorthand
+notation -- until chapter 7).
 
 For the record, I recommend this particular book for anyone who:
 
