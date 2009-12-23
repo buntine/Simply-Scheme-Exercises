@@ -7,7 +7,11 @@ at the end of each chapter in the textbook Simply Scheme (Brian
 Harvey and Matthew Wright, 2nd ed, MIT 1999).
 
 I have omitted the first two chapters as they are very basic
-and contain little or no actual code.
+and contain little or no actual code. Also, on most chapters,
+there is a section called "Boring exercises" and a section
+called "Real exercises". I've omitted all boring exercises
+because their solutions contain no actual code and they are...
+well... boring.
 
 The code samples throughout the book use a slightly modified
 implementation of Scheme (syntactically LISP, but with some
