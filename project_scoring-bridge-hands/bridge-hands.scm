@@ -23,7 +23,8 @@
 ; Returns a list of numbers representing the
 ; amount of card which satisfy each suit.
 (define (suit-counts hand)
-  (every (lambda (s) (count-suit s hand)) '(s h c d))
+  (every (lambda (s)
+           (count-suit s hand)) '(s h c d))
 
 ; Calculates the number of distribution points 
 ; for the amount of cards in a particular suit (n).
