@@ -13,11 +13,11 @@
 (define (in-range? n low high)
   (and (>= n low) (>= high n)))
 
-(define (seconds n)
+(define (minutes n)
   (/ n 60))
 
 (define (hours n)
-  (seconds (seconds n)))
+  (minutes (minutes n)))
 
 (define (days n)
   (/ (hours n) 24))
@@ -41,10 +41,9 @@
   (cond
     ((< s 0) (se 'minus (describe-time (abs s))))  ; Sorry! I couldn't help but use recursion here. :)
     ((in-range? s 0 60) (se s 'seconds))
-    ((in-range? s 61 3600) (se (seconds s) 'minutes))
+    ((in-range? s 61 3600) (se (minutes s) 'minutes))
     ((in-range? s 3601 86400) (se (hours s) 'hours))
-    ((in-range? s 3601 86400) (se (hours s) 'hours))
-    ((in-range? s 86400 604800) (se (days s) 'days))
+    ((in-range? s 86401 604800) (se (days s) 'days))
     ((in-range? s 604801 31536000) (se (weeks s) 'weeks))
     ((in-range? s 31536001 315360000) (se (years s) 'years))
     ((in-range? s 315360001 3153600000) (se (decades s) 'decades))
