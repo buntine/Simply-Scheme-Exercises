@@ -9,6 +9,9 @@
 ;
 ; Can you make the program smart about saying 1 CENTURY instead of 1 CENTURIES?
 
+; Andy note: I found this one difficult to write succinctly without the ability
+;            to use a tree data structure. Please fork if you know a better solution!
+
 (define (minutes n)
   (/ n 60))
 
@@ -67,7 +70,7 @@
     ((>= s (time-for 'day)) (se (days s) 'day))
     ((>= s (time-for 'hour)) (se (hours s) 'hour))
     ((>= s (time-for 'minute)) (se (minutes s) 'minute))
-    (else '(0 cock))))
+    (else '(0 second))))
 
 (define (describe-time s)
   (let ((time (time-fragment s)))
@@ -76,6 +79,6 @@
       (let ((t (first time))
             (f (last time)))
         (if (= t (floor t))
-          time
+          (pluralize t f)
           (se (pluralize t f)
               (describe-time (- s (* (floor t) (time-for f))))))))))
