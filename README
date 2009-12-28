@@ -2,9 +2,9 @@
 - SIMPLY SCHEME, EXERCISES -
 ----------------------------
 
-This project contains my solutions to the exercises presented
-at the end of each chapter in the textbook Simply Scheme (Brian
-Harvey and Matthew Wright, 2nd ed, MIT 1999).
+This project contains my solutions to the exercises and projects
+presented at the end of each chapter in the textbook Simply Scheme
+(Brian Harvey and Matthew Wright, 2nd ed, MIT 1999).
 
 I have omitted the first two chapters as they are very basic
 and contain little or no actual code. Also, on most chapters,
