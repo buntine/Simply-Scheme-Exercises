@@ -1,0 +1,34 @@
+Write a procedure number-name that takes a positive integer argument and returns a
+sentence containing that number spelled out in words:
+
+> (number-name 5513345)
+(FIVE MILLION FIVE HUNDRED THIRTEEN THOUSAND THREE HUNDRED FORTY FIVE)
+
+> (number-name (factorial 20))
+(TWO QUINTILLION FOUR HUNDRED THIRTY TWO QUADRILLION NINE HUNDRED TWO
+ TRILLION EIGHT BILLION ONE HUNDRED SEVENTY SIX MILLION SIX HUNDRED
+ FORTY THOUSAND)
+
+There are some special cases you will need to consider:
+  - Numbers in which some particular digit is zero
+  - Numbers like 1,000,529 in which an entire group of three digits is zero.
+  - Numbers in the teens.
+
+Here are two hints. First, split the number into groups of three digits, going from
+right to left. Also, use the sentence
+
+'(thousand million billion trillion quadrillion quintillion
+  sextillion septillion octillion nonillion decillion)
+
+You can write this bottom-up or top-down. To work bottom-up, pick a subtask and
+get that working before you tackle the overall structure of the problem. For example,
+write a procedure that returns the word FIFTEEN given the argument 15.
+
+To work top-down, start by writing number-name, freely assuming the existence of
+whatever helper procedures you like. You can begin debugging by writing stub procedures
+that fit into the overall program but don’t really do their job correctly. For example, as
+an intermediate stage you might end up with a program that works like this:
+
+> (number-name 1428425)
+(1 MILLION 428 THOUSAND 425)
+
