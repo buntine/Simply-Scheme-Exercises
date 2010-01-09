@@ -91,10 +91,12 @@
 ; and English-language version of it.
 (define (number-name n)
   (let ((nums (groups-of-three n)))
-    (se (print-quantities
-      (if (< n 999)
-        (se n)
-        (keep
-          (lambda (n) (not (equal? n "000")))
-          (se (print-magnitudes
-            (bl nums) 0 1) (last nums))))))))
+    (if (= n 0)
+      'zero
+      (se (print-quantities
+        (if (< n 999)
+          (se n)
+          (keep
+            (lambda (n) (not (equal? n "000")))
+            (se (print-magnitudes
+                  (bl nums) 0 1) (last nums)))))))))
