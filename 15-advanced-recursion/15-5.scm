@@ -12,6 +12,8 @@
 ;
 ; Hint: This problem has a lot in common with the subsets example.
 
+; Andy note: My solution is incomplete. It returns way too much at the moment.
+
 (define (letters n)
   (cond ((= n 2) (se 'a 'b 'c))
         ((= n 3) (se 'd 'e 'f))
@@ -32,9 +34,12 @@
 (define (prepend-each a b)
   (if (empty? a)
     b
-    (se (prepend-each (bf a) b) (prepend-every (first a) b))))
+    (se (prepend-each (bf a) b)
+        (prepend-every (first a) b))))
 
 (define (phone-spell n)
   (if (= (count n) 1)
     (letters n)
-    (se (prepend-each (letters (first n)) (phone-spell (bf n))))))
+    (se
+      (prepend-each (letters (first n))
+                    (phone-spell (bf n))))))
