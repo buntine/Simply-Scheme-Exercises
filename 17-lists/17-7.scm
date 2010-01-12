@@ -5,3 +5,15 @@
 ; optionally, try to write a version that takes any number. Also, you don’t have to worry
 ; about the error checking that the real sentence does.)
 
+(define (sentence2 a b)
+  (cond ((word? a) (sentence2 (list a) b))
+        ((word? b) (sentence2 a (list b)))
+        (else (append a b))))
+
+(define (listify lst)
+  (map (lambda (l) (if (word? l) (list l) l)) lst))
+
+(define (sentence3 . words)
+  (if (empty? words)
+    '()
+    (apply append (listify words))))
