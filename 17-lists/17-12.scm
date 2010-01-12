@@ -7,4 +7,9 @@
 ; (A B C D E F G H I J K)
 
 (define (flatten lst)
-  )
+  (if (word? lst)
+    lst
+    (reduce se
+      (map (lambda (sublist) (flatten sublist))
+           lst))))
+
