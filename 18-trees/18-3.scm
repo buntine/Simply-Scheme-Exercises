@@ -22,6 +22,6 @@
 
 (define (find-depth-in-forest tree d)
   (if (null? tree)
-    (list 0)
+    '()
     (cons (find-depth (car tree) d)
           (find-depth-in-forest (cdr tree) d))))
