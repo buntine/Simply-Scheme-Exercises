@@ -13,23 +13,41 @@
 ; '(* (+ 4 3) 2) -- '() '()
 ; '((+ 4 3) 2) -- '(*) '()
 ; '(2) -- '(*) '((+ (4) (3)))
+;   '(+ 4 3) '() '()
+;   '(4 3) '(+) '()
+;   '(3) '(+) '((4))
+;   '()  '(+) '((3) (4))
+;   '()  '() '((+ (3) (4)))
 ; '() -- '(*) '((2) (+ (4) (3)))
 ; '() -- '() '((* (2) (+ (4) (3))))
 
 (define (parse-scheme expr)
-  (parse-scheme-helper expr '() '())
+  (parse-scheme-helper expr '() '()))
+
+(define (operator? sym)
+  (member sym '(+ - * /)))
 
 (define (parse-scheme-helper expr operations operands)
   (cond ((null? expr)
           (if (null? operations)
             (car operands)
-            (handle-op '() operations operands))
+            (handle-op '() operations operands)))
         ((number? (car expr))
-          ;hack it out
-          )
+          (parse-scheme-helper (cdr expr)
+                               operations
+                               ((cons (make-node (car expr) '()) operands))))
+        ((operator? (car expr))
+          (parse-scheme-helper (cdr expr)
+                               (cons (car expr) operations)
+                               operands))
         ((list? (car expr))
-          ;get ill wit it
-          )
+          (parse-scheme-helper (cdr expr))
+                               operations
+                               (cons (parse-scheme (car expr) operands)))
         (else
-          ;be true
-          ))))
+          (error "Illegal operation:" (car expr)))))
+
+(define (handle-op expr operators operands)
+  (cons (make-node (car operators)
+                   (list (cadr operands) (car operands)))
+        (cddr operands)))
