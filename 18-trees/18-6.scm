@@ -29,21 +29,19 @@
 
 (define (parse-scheme-helper expr operations operands)
   (cond ((null? expr)
-          (if (null? operations)
-            (car operands)
-            (handle-op '() operations operands)))
+          (car (handle-op '() operations operands)))
         ((number? (car expr))
           (parse-scheme-helper (cdr expr)
                                operations
-                               ((cons (make-node (car expr) '()) operands))))
+                               (cons (make-node (car expr) '()) operands)))
         ((operator? (car expr))
           (parse-scheme-helper (cdr expr)
                                (cons (car expr) operations)
                                operands))
         ((list? (car expr))
-          (parse-scheme-helper (cdr expr))
+          (parse-scheme-helper (cdr expr)
                                operations
-                               (cons (parse-scheme (car expr) operands)))
+                               (cons (parse-scheme (car expr)) operands)))
         (else
           (error "Illegal operation:" (car expr)))))
 
