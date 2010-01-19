@@ -9,41 +9,30 @@
 ; (You can solve this problem without the restriction to two-argument invocations if you
 ; rewrite compute so that it doesn’t assume every branch node has two children.)
 
-
-; '(* (+ 4 3) 2) -- '() '()
-; '((+ 4 3) 2) -- '(*) '()
-; '(2) -- '(*) '((+ (4) (3)))
-;   '(+ 4 3) '() '()
-;   '(4 3) '(+) '()
-;   '(3) '(+) '((4))
-;   '()  '(+) '((3) (4))
-;   '()  '() '((+ (3) (4)))
-; '() -- '(*) '((2) (+ (4) (3)))
-; '() -- '() '((* (2) (+ (4) (3))))
-
 (define (parse-scheme expr)
   (parse-scheme-helper expr '() '()))
 
 (define (operator? sym)
   (member sym '(+ - * /)))
 
-(define (parse-scheme-helper expr operations operands)
-  (cond ((null? expr)
-          (car (handle-op '() operations operands)))
-        ((number? (car expr))
-          (parse-scheme-helper (cdr expr)
-                               operations
-                               (cons (make-node (car expr) '()) operands)))
-        ((operator? (car expr))
-          (parse-scheme-helper (cdr expr)
-                               (cons (car expr) operations)
-                               operands))
-        ((list? (car expr))
-          (parse-scheme-helper (cdr expr)
-                               operations
-                               (cons (parse-scheme (car expr)) operands)))
-        (else
-          (error "Illegal operation:" (car expr)))))
+(define (parse-scheme-helper expr operators operands)
+  (let ((operation (car expr)))
+    (cond ((null? expr)
+            (car (handle-op '() operators operands)))
+          ((number? operation)
+            (parse-scheme-helper (cdr expr)
+                                 operators
+                                 (cons (make-node operation '()) operands)))
+          ((operator? operation)
+            (parse-scheme-helper (cdr expr)
+                                 (cons operation operators)
+                                 operands))
+          ((list? operation)
+            (parse-scheme-helper (cdr expr)
+                                 operators
+                                 (cons (parse-scheme operation) operands)))
+          (else
+            (error "Illegal operation:" operation)))))
 
 (define (handle-op expr operators operands)
   (cons (make-node (car operators)
