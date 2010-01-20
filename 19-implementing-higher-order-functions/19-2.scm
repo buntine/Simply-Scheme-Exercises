@@ -1,16 +1,19 @@
-; Write the three-argument version of accumulate that we described.
+; Write keefp. Don’t forget that keep has to return a sentence if its second argument
+; is a sentence, and a word if its second argument is a word.
 ;
-; > (three-arg-accumulate + 0 '(4 5 6))
-; 15
-;
-; > (three-arg-accumulate + 0 '())
-; 0
-;
-; > (three-arg-accumulate cons '() '(a b c d e))
-; (A B C D E)
+; (Hint: it might be useful to write a combine procedure that uses either word or
+; sentence depending on the types of its arguments.)
 
-(define (three-arg-accumulate func null-value sent)
-  (if (empty? sent)
-    null-value
-    (func (car sent)
-          (three-arg-accumulate func null-value (cdr sent)))))
+(define (keep2 pred sent)
+  (if (word? sent)
+    (combine pred sent word "")
+    (combine pred sent se '())))
+
+(define (combine pred sent combiner null-value)
+  (cond
+    ((empty? sent) null-value)
+    ((pred (first sent))
+      (combiner (first sent) (combine pred (butfirst sent)
+                                      combiner null-value)))
+    (else (combine pred (butfirst sent)
+                   combiner null-value))))
