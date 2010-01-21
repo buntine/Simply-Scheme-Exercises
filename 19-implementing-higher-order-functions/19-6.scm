@@ -3,13 +3,13 @@
 ; should return #t if the argument predicate will return true for any two adjacent words
 ; in the sentence:
 ;
-; > (true-for-any-pair? equal? ’(a b c b a))
+; > (true-for-any-pair? equal? '(a b c b a))
 ; #F
 ;
-; > (true-for-any-pair? equal? ’(a b c c d))
+; > (true-for-any-pair? equal? '(a b c c d))
 ; #T
 ;
-; > (true-for-any-pair? < ’(20 16 5 8 6))
+; > (true-for-any-pair? < '(20 16 5 8 6))
 ; #T
 
 (define (firsttwo lst)
