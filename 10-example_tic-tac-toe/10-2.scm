@@ -4,7 +4,4 @@
 ; Write a procedure tie-game? that returns #t in this case.
 
 (define (tie-game? position)
-  (equal? position
-          (keep (lambda (n) (not
-                              (equal? n '_)))
-                position)))
+  (not (member? '_ position)))

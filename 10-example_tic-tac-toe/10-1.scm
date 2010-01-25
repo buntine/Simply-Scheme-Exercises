@@ -7,10 +7,5 @@
 ; arguments and returns #t if that player has already won.
 
 (define (already-won? position letter)
-  (already-won-helper? (find-triples position) letter))
-
-(define (already-won-helper? triples letter)
-  (cond ((empty? triples) #f)
-        ((equal? (keep (lambda (n) (equal? n letter)) (car triples))
-                 (car triples)) #t)
-        (else (already-won-helper? (cdr triples) letter))))
+  (member? (word letter letter letter)
+           (find-triples position)))
