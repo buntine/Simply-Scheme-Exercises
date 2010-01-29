@@ -16,8 +16,9 @@
       (let ((args (get-args (arg-count fn-entry) 1)))
         (if (not (in-domain? args fn-entry))
           (begin
-            (display "Argument(s) not in domain:")
-            (display (caddddr fn-entry)))
+            (display "Argument(s) not in domain: ")
+            (display (caddddr fn-entry))
+            (newline))
            (show-answer (apply (scheme-function fn-entry) args)))
         (functions-loop)))))
 
@@ -179,6 +180,11 @@
 (define (caddddr lst)
   (cadr (cdddr lst)))
 
+(define (err-message type)
+  (cond ((equal? type 'num) "argument must be numeric")
+        ((equal? type 'nums) "arguments must both be numeric")
+        (else "fuck you")))
+
 
 ;; The list itself
 
@@ -257,4 +263,4 @@
         (list 'vowel? (lambda (x) (member? x '(a e i o u))) 1
               (lambda (x) #t) "None")
         (list 'word word 2 (lambda (x y) (and (word? x) (word? y))) (err-message 'words))
-        (list 'word? word? 1 (lambda (x) #t))) "None")
+        (list 'word? word? 1 (lambda (x) #t) "None")))
