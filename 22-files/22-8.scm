@@ -42,7 +42,18 @@
 ; that do appear in both files.
 
 
-; Andy note: Call me like this: (join "22-files/in6" "22-files/in7" 3 1 "out3")
+; Andy note: Invoke it like this: (join "22-files/in6" "22-files/in7" 3 1 "out3")
 
 (define (join infile-a infile-b pos-a pos-b outfile)
+  (let ((data-a (read-file infile-a))
+        (data-b (read-file infile-b)))
+    (write-file (join-by-field data-a data-b pos-a pos-b) outfile)))
+
+(define (read-file path)
+  )
+
+(define (write-file lines path)
+  )
+
+(define (join-by-field data-a data-b pos-a pos-b)
   )
