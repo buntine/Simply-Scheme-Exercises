@@ -47,13 +47,48 @@
 (define (join infile-a infile-b pos-a pos-b outfile)
   (let ((data-a (read-file infile-a))
         (data-b (read-file infile-b)))
-    (write-file (join-by-field data-a data-b pos-a pos-b) outfile)))
+    (write-file (merge-by-field data-a data-b pos-a pos-b)
+                outfile)))
 
+; Reads each line of an input port into a list.
 (define (read-file path)
-  )
+  (let ((inport (open-input-file path)))
+    (define lines (read-file-helper inport '()))
+    (close-input-port inport)
+    lines))
 
+(define (read-line-helper inport lines)
+  (let ((line (read-line inport)))
+    (if (eof-object? line)
+      lines
+      (read-line-helper inport
+                        (endcons line lines)))))
+
+; Writes each item of lines into an output port.
 (define (write-file lines path)
   )
 
-(define (join-by-field data-a data-b pos-a pos-b)
-  )
+; Merges two lists by a matching item denoted by pos-a and pos-b.
+(define (merge-by-field data-a data-b pos-a pos-b)
+  (if (or (null? data-a) (null? data-b))
+    '()
+    (merge-by-field-helper data-a data-b pos-a pos-b '())))
+
+(define (merge-by-field-helper data-a data-b pos-a pos-b lst)
+  (if (null? data-a)
+    lst
+    (let (match (find-by-field data-b
+                               pos-b
+                               (item pos-a (car data-a))))
+      (if match
+        (merge-by-field-helper (cdr data-a)
+                               data-b pos-a pos-b
+                               (endcons (join-item (car data-a) match)
+                                        lst))
+        (merge-by-field-helper (cdr data-a)
+                               data-b pos-a pos-b
+                               lst)))))
+
+; Adds an item onto the end of a list
+(define (endcons n lst)
+  (append lst (cons n '())))
