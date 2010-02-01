@@ -87,7 +87,10 @@
       (if match
         (merge-by-field-helper (cdr data-a)
                                data-b pos-a pos-b
-                               (endcons (join-item (car data-a) match)
+                               (endcons (join-lists-by-field
+                                          (car data-a)
+                                          match
+                                          (item pos-a (car data-a)))
                                         lst))
         (merge-by-field-helper (cdr data-a)
                                data-b pos-a pos-b
@@ -101,9 +104,16 @@
         (else (find-by-field (cdr lst) pos value))))
 
 ; Joins two lists by a matching field.
-(define (join-item a b)
-  '(1 2 3))
-
+; The field at pos in list b will be removed.
+(define (join-lists-by-field a b value)
+  (cond ((null? b) a)
+        ((equal? (car b) value)
+          (join-lists-by-field a (cdr b) value))
+        (else
+          (join-lists-by-field (endcons (car b) a)
+                              (cdr b)
+                              value))))
+    
 ; Adds an item onto the end of a list
 (define (endcons n lst)
   (append lst
