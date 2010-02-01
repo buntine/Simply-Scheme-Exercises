@@ -58,7 +58,7 @@
     lines))
 
 (define (read-file-helper inport lines)
-  (let ((line (read-line inport)))
+  (let ((line (read inport)))
     (if (eof-object? line)
       lines
       (read-file-helper inport
@@ -74,7 +74,7 @@
 
 ; Merges two lists by a matching item denoted by pos-a and pos-b.
 (define (merge-by-field data-a data-b pos-a pos-b)
-  (show data-a) (show data-b)
+  (show (car data-a)) (show data-b)
   (if (or (null? data-a) (null? data-b))
     '()
     (merge-by-field-helper data-a data-b pos-a pos-b '())))
@@ -107,4 +107,5 @@
 
 ; Adds an item onto the end of a list
 (define (endcons n lst)
-  (append lst (cons n '())))
+  (append lst
+          (cons n '())))
