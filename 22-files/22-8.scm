@@ -42,7 +42,7 @@
 ; that do appear in both files.
 
 
-; Andy note: Invoke it like this: (join "22-files/in6" "22-files/in7" 3 1 "out3")
+; Andy note: Invoke it like this: (join "22-files/in6" "22-files/in7" 3 1 "22-files/out3")
 
 (define (join infile-a infile-b pos-a pos-b outfile)
   (let ((data-a (read-file infile-a))
@@ -57,19 +57,24 @@
     (close-input-port inport)
     lines))
 
-(define (read-line-helper inport lines)
+(define (read-file-helper inport lines)
   (let ((line (read-line inport)))
     (if (eof-object? line)
       lines
-      (read-line-helper inport
+      (read-file-helper inport
                         (endcons line lines)))))
 
 ; Writes each item of lines into an output port.
 (define (write-file lines path)
-  )
+  (let ((outport (open-output-file path)))
+    (for-each (lambda (line) (show-line line outport))
+              lines)
+    (close-output-port outport)
+    'done))
 
 ; Merges two lists by a matching item denoted by pos-a and pos-b.
 (define (merge-by-field data-a data-b pos-a pos-b)
+  (show data-a) (show data-b)
   (if (or (null? data-a) (null? data-b))
     '()
     (merge-by-field-helper data-a data-b pos-a pos-b '())))
@@ -77,9 +82,9 @@
 (define (merge-by-field-helper data-a data-b pos-a pos-b lst)
   (if (null? data-a)
     lst
-    (let (match (find-by-field data-b
+    (let ((match (find-by-field data-b
                                pos-b
-                               (item pos-a (car data-a))))
+                               (item pos-a (car data-a)))))
       (if match
         (merge-by-field-helper (cdr data-a)
                                data-b pos-a pos-b
@@ -88,6 +93,17 @@
         (merge-by-field-helper (cdr data-a)
                                data-b pos-a pos-b
                                lst)))))
+
+; Searches a list for a match at the correct position.
+; Returns the list element if found, otherwise #f.
+(define (find-by-field lst pos value)
+  (cond ((null? lst) #f)
+        ((equal? (item pos (car lst)) value) (car lst))
+        (else (find-by-field (cdr lst) pos value))))
+
+; Joins two lists by a matching field.
+(define (join-item a b)
+  '(1 2 3))
 
 ; Adds an item onto the end of a list
 (define (endcons n lst)
