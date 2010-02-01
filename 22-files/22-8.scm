@@ -74,7 +74,6 @@
 
 ; Merges two lists by a matching item denoted by pos-a and pos-b.
 (define (merge-by-field data-a data-b pos-a pos-b)
-  (show (car data-a)) (show data-b)
   (if (or (null? data-a) (null? data-b))
     '()
     (merge-by-field-helper data-a data-b pos-a pos-b '())))
