@@ -30,8 +30,9 @@ notation -- until chapter 7).
 For the record, I recommend this particular book for anyone who:
 
 0) wants to (re)learn LISP and/or functional programming;
-1) finds SICP uses too much abstract mathematics;
+1) finds SiCP difficult to digest (hint: read SS and then SiCP)
 2) is looking for a good introduction to programming
 
 The text is available for free in PDF format. It's distributed under
-the MIT license.
+the GNU General Public License. I place all of my solutions and original
+work on this project in the public domain.
