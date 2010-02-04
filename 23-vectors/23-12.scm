@@ -15,10 +15,25 @@
 ; #(4  7  18 23 60 95)    ; exchange   60 with 95
 
 (define (vector-sort! vec)
-  )
+  (v-s-helper! vec 0))
+
+(define (v-s-helper! vec index)
+  (if (= index (vector-length vec))
+    vec
+    (begin (vector-swap! vec index
+                         (smallest-from vec index index))
+           (v-s-helper! vec (+ index 1)))))
+
+; Returns the index of the smallest item in a vector of
+; integers - starting from index 'start'.
+(define (smallest-from vec start smallest)
+  (cond ((= start (vector-length vec)) smallest)
+        ((< (vector-ref vec start) (vector-ref vec smallest))
+          (smallest-from vec (+ start 1) start))
+        (else
+          (smallest-from vec (+ start 1) smallest))))
 
 (define (vector-swap! vector index1 index2)
   (let ((temp (vector-ref vector index1)))
     (vector-set! vector index1 (vector-ref vector index2))
     (vector-set! vector index2 temp)))
-
