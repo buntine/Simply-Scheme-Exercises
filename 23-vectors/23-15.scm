@@ -8,14 +8,30 @@
 ; > (array-set! a1 '(3 2 3) '(the end))
 
 (define (make-array dimensions)
-  )
+  (let ((revdim (reverse dimensions)))
+    (m-a-helper (cdr revdim)
+                (make-list '()
+                           (car revdim)
+                           0))))
+
+(define (m-a-helper dimensions vec)
+  (let ((array (apply vector vec)))
+    (if (null? dimensions)
+      array
+      (m-a-helper (cdr dimensions)
+                  (make-list '()
+                             (car dimensions)
+                             array)))))
+
+(define (make-list lst amount value)
+  (if (= amount 0)
+    lst
+    (make-list (cons value lst)
+               (- amount 1)
+               value)))
 
 (define (array-set! array dimension value)
   )
 
 (define (array-ref array dimension)
   )
-
-; 2 ->     #(0 0)
-; 2 2 ->   #(#(0 0) #(0 0))
-; 2 2 2 -> #(#(#(0 0) #(0 0)) #(#(0 0) #(0 0)))
