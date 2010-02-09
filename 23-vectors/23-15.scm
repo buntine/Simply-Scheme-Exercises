@@ -14,6 +14,8 @@
                            (car revdim)
                            0))))
 
+; This accepts the dimensions in reverse-order
+; and then builds the array from the inside-out.
 (define (m-a-helper dimensions vec)
   (let ((array (apply vector vec)))
     (if (null? dimensions)
@@ -31,7 +33,14 @@
                value)))
 
 (define (array-set! array dimension value)
-  )
+  (if (null? dimension)
+    #f
+    (vector-set! (array-ref array (bl dimension))
+                 (last dimension)
+                 value)))
 
 (define (array-ref array dimension)
-  )
+  (if (null? dimension)
+    array
+    (array-ref (vector-ref array (car dimension))
+               (cdr dimension))))
