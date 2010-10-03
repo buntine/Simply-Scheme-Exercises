@@ -2,9 +2,13 @@
 - SIMPLY SCHEME, EXERCISES -
 ----------------------------
 
+NOTE: It would be cool to see other peoples solutions to these problems! ;)
+
 This project contains my solutions to the exercises and projects
 presented at the end of each chapter in the textbook Simply Scheme
 (Brian Harvey and Matthew Wright, 2nd ed, MIT 1999).
+
+The book is freely available here: http://www.cs.berkeley.edu/~bh/ss-toc2.html
 
 I have omitted the first two chapters as they are very basic
 and contain little or no actual code. Also, on most chapters,
