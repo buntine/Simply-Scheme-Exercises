@@ -9,32 +9,16 @@
 ; (You can solve this problem without the restriction to two-argument invocations if you
 ; rewrite compute so that it doesn’t assume every branch node has two children.)
 
+; My solution: Need to make all numbers as leaf nodes and  operators as trees.
 (define (parse-scheme expr)
-  (parse-scheme-helper expr '() '()))
+  (cond
+    ((null? expr) '())
+    ((number? (car expr)) (cons (leaf (car expr)) (parse-scheme (cdr expr))))
+    ((list? (car expr)) (cons (parse-scheme (car expr)) (parse-scheme (cdr expr))))
+    (else (make-node (car expr) (parse-scheme (cdr expr))))  ;operator
+    ))
 
-(define (operator? sym)
-  (member sym '(+ - * /)))
-
-(define (parse-scheme-helper expr operators operands)
-  (let ((operation (car expr)))
-    (cond ((null? expr)
-            (car (handle-op '() operators operands)))
-          ((number? operation)
-            (parse-scheme-helper (cdr expr)
-                                 operators
-                                 (cons (make-node operation '()) operands)))
-          ((operator? operation)
-            (parse-scheme-helper (cdr expr)
-                                 (cons operation operators)
-                                 operands))
-          ((list? operation)
-            (parse-scheme-helper (cdr expr)
-                                 operators
-                                 (cons (parse-scheme operation) operands)))
-          (else
-            (error "Illegal operation:" operation)))))
-
-(define (handle-op expr operators operands)
-  (cons (make-node (car operators)
-                   (list (cadr operands) (car operands)))
-        (cddr operands)))
+;Sample Run
+;> (compute (parse-scheme '(* (+ 4 3) 2)))
+;14
+;> 
