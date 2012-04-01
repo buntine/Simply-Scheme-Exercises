@@ -3,18 +3,13 @@
 ; is a one-node tree, in which the root node has no children, then prune should return
 ; #f because the result of removing the root node wouldn’t be a tree.)
 
-(define (leaf? node)
-  (null? (children node)))
-
+; My solution does not use the filter operator. Instead if the node is leaf then it just skips over it.
+; Also I prefer using make-node instead of cons for data encapsulation.
 (define (prune tree)
-  (if (leaf? tree)
-    #f
-    (cons (datum tree)
-          (prune-in-forest (children tree)))))
+  (cond ((leaf? tree) #f)
+        (else (make-node (datum tree) (prune-forest (children tree))))))
 
-(define (prune-in-forest tree)
-  (if (null? tree)
-    '()
-    (filter (lambda (n) n)
-            (cons (prune (car tree))
-                  (prune-in-forest (cdr tree))))))
+(define (prune-forest forest)
+  (cond  ((null? forest) '())
+         ((leaf? (car forest)) (prune-forest (cdr forest)))
+         (else (make-node (prune (car forest)) (prune-forest (cdr forest))))))
