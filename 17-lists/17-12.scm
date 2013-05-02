@@ -13,3 +13,9 @@
       (map (lambda (sublist) (flatten sublist))
            lst))))
 
+; Alternative without using 'se'
+(define (flatten l)
+    (cond ((null? l) '())
+          ((word? l) (list l))
+          (else (append (flatten (car l))
+                        (flatten (cdr l))))))
