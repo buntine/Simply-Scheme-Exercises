@@ -23,7 +23,7 @@
         ((= n 7) (se 'p 'q 'r 's))
         ((= n 8) (se 't 'u 'v))
         ((= n 9) (se 'w 'x 'y 'z))
-        (else (letters 2))))
+        (else n)))
 
 (define (prepend-every letter sent)
   (if (empty? sent)
@@ -33,13 +33,13 @@
 
 (define (prepend-each a b)
   (if (empty? a)
-    b
+    '()
     (se (prepend-each (bf a) b)
         (prepend-every (first a) b))))
 
 (define (phone-spell n)
-  (if (= (count n) 1)
-    (letters n)
+  (if (empty? n)
+    (se "")
     (se
       (prepend-each (letters (first n))
                     (phone-spell (bf n))))))
