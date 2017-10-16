@@ -1,6 +1,4 @@
-----------------------------
-- SIMPLY SCHEME, EXERCISES -
-----------------------------
+# SIMPLY SCHEME EXERCISES
 
 NOTE: It would be cool to see other peoples solutions to these problems! ;)
 
@@ -24,7 +22,9 @@ working correctly in Dr. Scheme, you must choose "Pretty Big"
 from the languages menu and then install the extensions via
 the REPL:
 
+```
 > (require (planet dyoo/simply-scheme:1:2/simply-scheme))
+```
 
 I try to only use concepts and procedures that have been introduced
 when answering questions (e.g I don't use recursion before it's been
@@ -33,9 +33,9 @@ notation -- until chapter 7).
 
 For the record, I recommend this particular book for anyone who:
 
-0) wants to (re)learn LISP and/or functional programming;
-1) finds SiCP difficult to digest (hint: read SS and then SiCP)
-2) is looking for a good introduction to programming
+  0) Wants to (re)learn LISP and/or functional programming
+  1) Finds SiCP difficult to digest (hint: read SS and then SiCP)
+  2) Is looking for a good introduction to programming
 
 The text is available for free in PDF format. It's distributed under
 the GNU General Public License. I place all of my solutions and original
